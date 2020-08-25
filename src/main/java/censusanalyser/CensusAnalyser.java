@@ -12,29 +12,29 @@ import java.util.stream.StreamSupport;
 public class CensusAnalyser {
     public static int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            Iterator<IndiaCensusCSV> censusCSVIterator = new OpenCSVBuilder()
-                    .getCSVFileIterator(reader, IndiaCensusCSV.class);
+            ICSVBuilder csvbuilder = CSVBuilderFactory.createCSVbuilder();
+            Iterator<IndiaCensusCSV> censusCSVIterator = csvbuilder.getCSVFileIterator(reader,IndiaCensusCSV.class);
             return getCount(censusCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e){
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_DATA_PROBLEM);
         }
     }
 
     public static int loadIndiaStateCodeData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
-            Iterator<IndiaStateCSV> stateCSVIterator = new OpenCSVBuilder()
-                    .getCSVFileIterator(reader, IndiaStateCSV.class);
+            ICSVBuilder csvbuilder = CSVBuilderFactory.createCSVbuilder();
+            Iterator<IndiaCensusCSV> stateCSVIterator = csvbuilder.getCSVFileIterator(reader,IndiaStateCSV.class);
             return getCount(stateCSVIterator);
         } catch (IOException e) {
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException e){
             throw new CensusAnalyserException(e.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_DATA_PROBLEM);
         }
     }
 
-    private static <E> int getCount(Iterator<E> iterator) {
+    private static <E> int getCount(Iterator<E> iterator){
         Iterable<E> csvIterable = () -> iterator;
         return (int) StreamSupport.stream(csvIterable.spliterator(), false).count();
     }
