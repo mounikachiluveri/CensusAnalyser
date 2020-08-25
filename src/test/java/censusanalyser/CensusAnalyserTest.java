@@ -17,7 +17,7 @@ public class CensusAnalyserTest {
     private static final String INDIA_STATE_CODE_INCORRECT_DATA_CSV_FILE_PATH = "./src/test/resources/IndiaStateCodeIncorrectData.csv\";";
 
     @Test
-    public void givenIndianCensusCSVFileReturnsCorrectRecords() {
+    public void givenIndianCensusCSVFileReturnsCorrectRecords() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int numOfRecords = censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
@@ -27,7 +27,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() {
+    public void givenIndiaCensusData_WithWrongFile_ShouldThrowException() throws CSVBuilderException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             ExpectedException exceptionRule = ExpectedException.none();
@@ -39,7 +39,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusCSVFile_whenWrongFileExtension_shouldThrowCustomException() {
+    public void givenIndianCensusCSVFile_whenWrongFileExtension_shouldThrowCustomException() throws CSVBuilderException {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
@@ -51,7 +51,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusCSVFile_whenIncorrectDelimiter_shouldThrowCustomException() {
+    public void givenIndianCensusCSVFile_whenIncorrectDelimiter_shouldThrowCustomException() throws CSVBuilderException {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
@@ -63,7 +63,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndianCensusCSVFile_whenIncorrectHeader_shouldThrowCustomException() {
+    public void givenIndianCensusCSVFile_whenIncorrectHeader_shouldThrowCustomException() throws CSVBuilderException {
         CensusAnalyser censusAnalyser = new CensusAnalyser();
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
@@ -76,7 +76,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaStateCodeCSVFile_whenProper_shouldReturnsCorrectRecordCount() {
+    public void givenIndiaStateCodeCSVFile_whenProper_shouldReturnsCorrectRecordCount() throws CSVBuilderException {
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
 
@@ -89,7 +89,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaStateCodeCSVFile_whenWrongPath_shouldThrowCustomException() {
+    public void givenIndiaStateCodeCSVFile_whenWrongPath_shouldThrowCustomException() throws CSVBuilderException {
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
 
@@ -101,7 +101,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaStateCodeFile_whenWrongFileExtension_shouldThrowCustomException() {
+    public void givenIndiaStateCodeFile_whenWrongFileExtension_shouldThrowCustomException() throws CSVBuilderException {
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
 
@@ -113,7 +113,7 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenIndiaStateCodeFile_whenIncorrectDelimiter_shouldThrowCustomException() {
+    public void givenIndiaStateCodeFile_whenIncorrectDelimiter_shouldThrowCustomException() throws CSVBuilderException {
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
 
@@ -126,7 +126,7 @@ public class CensusAnalyserTest {
 
 
     @Test
-    public void givenIndiaStateCodeFile_whenIncorrectHeader_shouldThrowCustomException() {
+    public void givenIndiaStateCodeFile_whenIncorrectHeader_shouldThrowCustomException() throws CSVBuilderException {
         ExpectedException expectedException = ExpectedException.none();
         expectedException.expect(CensusAnalyserException.class);
 
