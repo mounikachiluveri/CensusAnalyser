@@ -21,7 +21,17 @@ public class OpenCSVBuilder<E> implements ICSVBuilder {
     }
 
     @Override
-    public List<IndiaCensusCSV> getCSVFileList(Reader reader, Class aClass) {
-        return null;
+    public List<E> getCSVFileList(Reader reader, Class csvClass) throws CSVBuilderException {
+        try {
+            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
+            csvToBeanBuilder.withType(csvClass);
+            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
+            CsvToBean<E> csvToBean = csvToBeanBuilder.build();
+            return csvToBean.parse();
+        } catch (IllegalStateException e) {
+            throw new CSVBuilderException(e.getMessage(), CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
+        }
     }
+
 }
+
