@@ -88,6 +88,16 @@ public class CensusAnalyser {
         return new Gson().toJson(censusDAOList);
     }
 
+    public String getAreaWiseSortedCensusData() throws CensusAnalyserException {
+        if (censusMap == null || censusMap.size() == 0){
+            throw new CensusAnalyserException("No Census Data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.areaInAqKm);
+        List<IndiaCensusDAO> censusDAOList = censusMap.values().stream().collect(Collectors.toList());
+        censusDAOList = descendingSort(censusComparator, censusDAOList);
+        return new Gson().toJson(censusDAOList);
+    }
+
     private List<IndiaCensusDAO> descendingSort(Comparator<IndiaCensusDAO> csvComparator, List<IndiaCensusDAO> censusList) {
         for (int i = 0; i < censusList.size() - 1; i++ ){
             for (int j = 0; j < censusList.size() - i - 1; j++ ){
@@ -116,5 +126,3 @@ public class CensusAnalyser {
         return censusList;
     }
 
-
-}
